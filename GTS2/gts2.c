@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define INF 100000000  // Gia tri lon de khoi tao
+#define INF 100000000  // Gia tri lon de khoi tao (0 tren duong cheo cua file duoc dinh nghia la vo cuc)
 
-// Ham thuc hien GTS1: tinh hanh trinh theo thuat toan greedy TSP tu dinh bat dau
+
+// Ham GTS1: tinh tour theo thuat toan greedy cho TSP tu dinh bat dau
 // Input: start (0-index), n, ma tran chi phi c (n x n)
-// Output: tour (mang co kich thuoc n+1) va tra ve tong chi phi (cost)
+// Output: mang tour (co n+1 phan tu, dinh cuoi la dinh xuat phat) va tra ve tong cost
 int greedyTSP(int start, int n, int **c, int *tour) {
     int *visited = (int *) calloc(n, sizeof(int));
     int cost = 0;
@@ -19,13 +20,14 @@ int greedyTSP(int start, int n, int **c, int *tour) {
     for (int i = 1; i < n; i++) {
         int next = -1;
         int minCost = INF;
+        // Tim thanh pho chua di voi chi phi nho nhat
         for (int j = 0; j < n; j++) {
             if (!visited[j] && c[current][j] < minCost) {
                 minCost = c[current][j];
                 next = j;
             }
         }
-        if (next == -1) break;  // Neu co loi (khong tim thay dinh nao)
+        if (next == -1) break;  // Neu khong tim thay (truong hop bat thuong)
         
         visited[next] = 1;
         tour[count++] = next;
@@ -35,7 +37,7 @@ int greedyTSP(int start, int n, int **c, int *tour) {
         current = next;
     }
     
-    // Quay lai dinh xuat phat
+    // Quay lai thanh pho xuat phat
     cost += c[current][start];
     tour[count] = start;
     printf("Buoc cuoi: Tu thanh pho %d -> thanh pho %d voi cost = %d, tong cost = %d\n",
@@ -46,26 +48,24 @@ int greedyTSP(int start, int n, int **c, int *tour) {
 }
 
 int main() {
-    // Mo file gts2a.txt de doc du lieu:
-    // Dong dau: n p (so thanh pho va so dinh bat dau cho truoc)
-    // Dong tiep theo: p so (danh sach cac dinh bat dau, duoc danh so theo 1-index)
-    // Sau do: n dong, moi dong co n so la ma tran chi phi (INF duoc bieu dien bang mot so lon)
-    FILE *fp = fopen("gts2ex.txt", "r");
+    FILE *fp = fopen("gts2c.txt", "r");
     if (fp == NULL) {
         printf("Khong the mo file gts2a.txt\n");
         return 1;
     }
     
     int n, p;
+    // Dong dau: n (so thanh pho) va p (so thanh pho bat dau co san)
     fscanf(fp, "%d %d", &n, &p);
     
+    // Doc mang cac thanh pho bat dau (1-index trong file -> chuyen sang 0-index)
     int *startCities = (int *) malloc(p * sizeof(int));
     for (int i = 0; i < p; i++) {
         fscanf(fp, "%d", &startCities[i]);
         startCities[i]--; // chuyen sang 0-index
     }
     
-    // Cap phat ma tran chi phi
+    // Cap phat ma tran chi phi (n x n)
     int **c = (int **) malloc(n * sizeof(int *));
     for (int i = 0; i < n; i++) {
         c[i] = (int *) malloc(n * sizeof(int));
@@ -73,16 +73,19 @@ int main() {
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             fscanf(fp, "%d", &c[i][j]);
+            // Neu gia tri la 0 va i == j, thi duoc coi la INF (vo cuc)
+            if(i == j && c[i][j] == 0)
+                c[i][j] = INF;
         }
     }
     fclose(fp);
     
-    // Bien de luu hanh trinh tot nhat va chi phi tot nhat
+    // Bien luu best tour va best cost (duoc khoi tao bestCost la INF)
     int bestCost = INF;
     int *bestTour = (int *) malloc((n + 1) * sizeof(int));
     int *currentTour = (int *) malloc((n + 1) * sizeof(int));
     
-    // Lap qua cac dinh bat dau da cho (p dinh)
+    printf("\n====== GTS2: Duyet cac thanh pho bat dau ======\n");
     for (int i = 0; i < p; i++) {
         printf("\n----------------------\n");
         printf("Chay GTS1 voi thanh pho bat dau: %d\n", startCities[i] + 1);
@@ -102,7 +105,7 @@ int main() {
         }
     }
     
-    // In ra hanh trinh tot nhat va tong chi phi tot nhat
+    // In ra ket qua cua GTS2: tour tot nhat va chi phi tot nhat
     printf("\n=========================\n");
     printf("Hanh trinh tot nhat co chi phi = %d\n", bestCost);
     printf("Chi tiet tour: ");

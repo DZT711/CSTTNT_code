@@ -33,7 +33,7 @@ int compare(const void *a, const void *b) {
 
 int main() {
     int n, i, j;
-    FILE *f = fopen("color4.txt", "r");
+    FILE *f = fopen("color3.txt", "r");
     if (f == NULL) {
         printf("Không thể mở file \n");
         return 1;

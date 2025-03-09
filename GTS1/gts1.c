@@ -60,7 +60,7 @@ int main() {
     // Mo file gts1a.txt de doc du lieu
     FILE *fp = fopen("gts1c.txt", "r");
     if (fp == NULL) {
-        printf("Khong the mo file gts1a.txt\n");
+        printf("Khong the mo file .txt\n");
         return 1;
     }
     

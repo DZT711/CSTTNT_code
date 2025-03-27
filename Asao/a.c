@@ -169,7 +169,8 @@ void AStar(int s, int t, int n)
 int main()
 {
     // Mở file path2.txt để đọc dữ liệu
-    FILE *fp = fopen("path4.txt", "r");
+    //path1 set co huong
+    FILE *fp = fopen("path2.txt", "r");
     if (fp == NULL)
     {
         printf("Khong the mo file   \n");
@@ -200,9 +201,9 @@ int main()
         adj[u][adjSize[u]].w = w;
         adjSize[u]++;
         // Nếu đồ thị vô hướng, bạn có thể thêm dòng sau:
-        // adj[v][adjSize[v]].v = u;
-        // adj[v][adjSize[v]].w = w;
-        // adjSize[v]++;
+        adj[v][adjSize[v]].v = u;
+        adj[v][adjSize[v]].w = w;
+        adjSize[v]++;
     }
 
     // Đọc dòng cuối: heuristic cho từng đỉnh (1-based)

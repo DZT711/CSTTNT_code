@@ -58,7 +58,7 @@ void greedyTSP(int start, int n, int **c) {
 
 int main() {
     // Mo file gts1a.txt de doc du lieu
-    FILE *fp = fopen("gts1c.txt", "r");
+    FILE *fp = fopen("gts1e.txt", "r");
     if (fp == NULL) {
         printf("Khong the mo file .txt\n");
         return 1;

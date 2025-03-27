@@ -26,7 +26,7 @@ int cmpN2(const void *p1, const void *p2)
 
 int main()
 {
-    FILE *f = fopen("johnsond.txt", "r");
+    FILE *f = fopen("johnsone.txt", "r");
     if (f == NULL)
     {
         printf("Khong the mo file johnsona.txt\n");

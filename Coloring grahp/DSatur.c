@@ -11,7 +11,7 @@
 // sau do la ma tran ke (n x n)
 int main() {
     int n, i, j;
-    FILE *f = fopen("color3.txt", "r");
+    FILE *f = fopen("color5.txt", "r");
     if (f == NULL) {
         printf("Khong the mo file t\n");
         return 1;

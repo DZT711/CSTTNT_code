@@ -48,7 +48,7 @@ int greedyTSP(int start, int n, int **c, int *tour) {
 }
 
 int main() {
-    FILE *fp = fopen("gts2a.txt", "r");
+    FILE *fp = fopen("gts2e.txt", "r");
     if (fp == NULL) {
         printf("Khong the mo file .txt\n");
         return 1;

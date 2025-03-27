@@ -3,7 +3,7 @@
 
 int main()
 {
-    FILE *f = fopen("assignmentd.txt", "r");
+    FILE *f = fopen("assignmente.txt", "r");
     if (f == NULL)
     {
         printf("Không thể mở file \n");

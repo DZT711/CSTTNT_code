@@ -3,7 +3,7 @@
 
 int main()
 {
-    FILE *f = fopen("scheduled.txt", "r");
+    FILE *f = fopen("schedulea.txt", "r");
     if (f == NULL)
     {
         printf("Khong the mo file \n");
